@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waylon Dromgoole — Software & Automation, New Braunfels TX</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --paper:#efe7d4;
+    --paper-dark:#e5dcc4;
+    --card:#f6f1e3;
+    --ink:#241f18;
+    --ink-soft:#4a4237;
+    --ink-faint:#8a7a5c;
+    --stamp:#a8352c;
+    --stamp-soft:#c2604f;
+    --line:#c9bfa4;
+    --max:900px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  section{padding:64px 20px;}
+  .wrap{max-width:var(--max); margin:0 auto;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--stamp);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  h1,h2,h3{font-family:'Special Elite', monospace; line-height:1.1; margin:0;}
+  .dashed{border-top:2px dashed var(--line);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink); color:var(--paper);
+    padding:14px 20px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  nav .logo{font-family:'Special Elite', monospace; font-size:15px; letter-spacing:0.5px;}
+  nav a{color:var(--paper); text-decoration:none; opacity:0.85;}
+  nav .cta-nav{
+    background:var(--stamp); color:#fff; padding:8px 14px;
+    text-transform:uppercase; letter-spacing:1px; font-size:11px; font-weight:700;
+    opacity:1;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding-top:70px; padding-bottom:50px; position:relative;}
+  .ticket-tag{
+    display:inline-flex; gap:10px; align-items:center;
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ink-soft);
+    border:2px solid var(--ink); padding:5px 10px; margin-bottom:22px;
+  }
+  .ticket-tag b{color:var(--stamp);}
+  h1.hero-h{
+    font-size:clamp(36px, 6vw, 58px);
+    letter-spacing:-1px;
+    margin-bottom:18px;
+  }
+  .hero p.lede{
+    font-size:17px; line-height:1.6; color:var(--ink-soft);
+    max-width:56ch; margin-bottom:30px;
+  }
+  .btn-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;
+    padding:14px 22px; text-decoration:none; display:inline-block;
+    border:2px solid var(--ink);
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{background:var(--stamp); border-color:var(--stamp);}
+  .btn-ghost{background:transparent; color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink); color:var(--paper);}
+
+  /* ---------- STATS BAR ---------- */
+  .stats{
+    background:var(--ink); color:var(--paper);
+    padding:36px 20px;
+  }
+  .stats .wrap{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; text-align:center;}
+  .stat b{
+    display:block; font-family:'Special Elite', monospace;
+    font-size:clamp(24px,4vw,32px); color:var(--stamp-soft); margin-bottom:4px;
+  }
+  .stat span{font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#c9c2ad;}
+
+  /* ---------- SERVICES ---------- */
+  .svc-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:2px;
+    border:2px solid var(--ink); margin-top:26px;
+  }
+  .svc-item{
+    background:var(--card); padding:20px;
+    border-bottom:1px dashed var(--line);
+  }
+  .svc-item h3{font-size:16px; margin-bottom:6px; letter-spacing:-0.3px;}
+  .svc-item p{font-size:13.5px; color:var(--ink-soft); line-height:1.5; margin:0;}
+
+  /* ---------- PROCESS ---------- */
+  .process{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    margin-top:26px; border:2px solid var(--ink);
+  }
+  .step{padding:24px 20px; border-right:2px dashed var(--line);}
+  .step:last-child{border-right:none;}
+  .step .num{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--stamp);
+    font-weight:700; margin-bottom:10px;
+  }
+  .step h3{font-size:17px; margin-bottom:8px;}
+  .step p{font-size:13.5px; color:var(--ink-soft); line-height:1.5; margin:0;}
+
+  /* ---------- TICKET FORM ---------- */
+  .form-section{background:var(--paper-dark);}
+  .ticket-card{
+    background:var(--card);
+    border:2px solid var(--ink);
+    max-width:640px; margin:26px auto 0;
+    box-shadow:6px 6px 0 var(--ink);
+  }
+  .ticket-card .th{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 22px; border-bottom:2px solid var(--ink);
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:1px;
+  }
+  .ticket-card form{padding:24px 22px;}
+  .field{margin-bottom:16px;}
+  .field label{
+    display:block; font-family:'JetBrains Mono', monospace; font-size:10px;
+    text-transform:uppercase; letter-spacing:1px; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .field input, .field textarea, .field select{
+    width:100%; padding:11px 12px; font-family:'Inter',sans-serif; font-size:14px;
+    border:2px solid var(--ink); background:#fff; color:var(--ink);
+  }
+  .field textarea{min-height:100px; resize:vertical;}
+  .check-row{display:grid; grid-template-columns:1fr 1fr; gap:8px 14px;}
+  .check-item{display:flex; align-items:center; gap:8px; font-size:13px;}
+  .check-item input{width:16px; height:16px; accent-color:var(--stamp);}
+  .submit-btn{
+    width:100%; margin-top:8px; padding:14px; background:var(--ink); color:var(--paper);
+    border:2px solid var(--ink); font-family:'JetBrains Mono', monospace;
+    font-weight:700; letter-spacing:1px; text-transform:uppercase; font-size:13px; cursor:pointer;
+  }
+  .submit-btn:hover{background:var(--stamp); border-color:var(--stamp);}
+  .form-note{
+    font-size:12px; color:var(--ink-faint); margin-top:10px; text-align:center;
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .review-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:16px; margin-top:26px;
+  }
+  .review-card{
+    background:var(--card); border:2px solid var(--line);
+    padding:18px; position:relative;
+  }
+  .review-card.placeholder{border-style:dashed; color:var(--ink-faint);}
+  .stars{color:var(--stamp); font-size:14px; margin-bottom:8px;}
+  .review-card p{font-size:13.5px; line-height:1.5; margin:0 0 10px;}
+  .review-card .who{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--ink-soft);}
+  .review-cta{margin-top:22px; text-align:center;}
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border-bottom:2px dashed var(--line);}
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:18px 4px; display:flex; justify-content:space-between; align-items:center;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:15px; color:var(--ink);
+  }
+  .faq-q .plus{font-family:'JetBrains Mono', monospace; color:var(--stamp); font-size:18px;}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height 0.25s ease;}
+  .faq-a p{font-size:13.5px; line-height:1.6; color:var(--ink-soft); padding:0 4px 18px;}
+  .faq-item.open .faq-a{max-height:300px;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink); color:var(--paper); padding:40px 20px 30px;
+  }
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px;}
+  footer h3{font-size:19px; color:var(--stamp-soft); margin-bottom:10px;}
+  footer .contact-line{
+    font-family:'JetBrains Mono', monospace; font-size:13px; margin-bottom:6px;
+  }
+  footer .contact-line a{color:var(--paper); text-decoration:none;}
+  footer .fine{font-size:11px; color:#a89f8a; margin-top:24px; font-family:'JetBrains Mono', monospace;}
+
+  @media (max-width:640px){
+    .svc-grid, .process{grid-template-columns:1fr;}
+    .step{border-right:none; border-bottom:2px dashed var(--line);}
+    .stats .wrap{grid-template-columns:1fr;}
+    .check-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">WD // SOFTWARE</div>
+  <div style="display:flex; gap:18px; align-items:center;">
+    <a href="#services">Services</a>
+    <a href="#faq">FAQ</a>
+    <a href="#ticket" class="cta-nav">Open a ticket</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="ticket-tag">TICKET&nbsp;<b>#0001</b>&nbsp;· NEW BRAUNFELS, TX</div>
+    <h1 class="hero-h">Your business has a<br>bug. I fix it with code.</h1>
+    <p class="lede">Full-stack development and workflow automation for local businesses — custom-built software, not another monthly app subscription. Direct with the developer, start to finish.</p>
+    <div class="btn-row">
+      <a href="#ticket" class="btn btn-primary">Open a ticket</a>
+      <a href="#services" class="btn btn-ghost">See what I fix</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>&lt;48 HRS</b><span>Ticket response time</span></div>
+    <div class="stat"><b>100%</b><span>Custom-built, zero templates</span></div>
+    <div class="stat"><b>1-ON-1</b><span>Direct with the developer</span></div>
+  </div>
+</div>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow">Work performed</div>
+    <h2 style="font-size:28px;">What I build</h2>
+    <div class="svc-grid">
+      <div class="svc-item">
+        <h3>Full-stack web development</h3>
+        <p>Sites and apps built from the ground up — frontend, backend, database, all of it working together.</p>
+      </div>
+      <div class="svc-item">
+        <h3>Business process automation</h3>
+        <p>The repetitive stuff — data entry, follow-ups, reporting — running on its own, 24/7.</p>
+      </div>
+      <div class="svc-item">
+        <h3>Custom internal tools & dashboards</h3>
+        <p>Purpose-built software for how your business actually runs, not a generic template.</p>
+      </div>
+      <div class="svc-item">
+        <h3>Website builds & redesigns</h3>
+        <p>Fast, modern sites that load quick and actually convert visitors into calls.</p>
+      </div>
+      <div class="svc-item">
+        <h3>API & software integrations</h3>
+        <p>Getting your existing tools to talk to each other instead of living in separate silos.</p>
+      </div>
+      <div class="svc-item">
+        <h3>Ongoing support & maintenance</h3>
+        <p>Software doesn't end at launch — I stick around to keep it running and grow it with you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section style="padding-top:10px;">
+  <div class="wrap">
+    <div class="eyebrow">How a ticket moves</div>
+    <h2 style="font-size:28px;">From "it's broken" to shipped</h2>
+    <div class="process">
+      <div class="step">
+        <div class="num">01 — OPEN A TICKET</div>
+        <h3>Tell me what's broken</h3>
+        <p>Fill out the form below with what you need — or what's not working. Takes two minutes.</p>
+      </div>
+      <div class="step">
+        <div class="num">02 — DIAGNOSIS CALL</div>
+        <h3>We scope it together</h3>
+        <p>A short call to understand the real problem and map out the fix. No charge, no pressure.</p>
+      </div>
+      <div class="step">
+        <div class="num">03 — BUILT & DEPLOYED</div>
+        <h3>Working software, delivered</h3>
+        <p>You get real, running software — plus support after launch to keep it that way.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TICKET FORM ============ -->
+<section id="ticket" class="form-section">
+  <div class="wrap">
+    <div class="eyebrow" style="text-align:center;">Open a ticket</div>
+    <h2 style="font-size:28px; text-align:center;">Tell me what you need</h2>
+
+    <div class="ticket-card">
+      <div class="th">
+        <span>SERVICE&nbsp;REQUEST</span>
+        <span style="color:var(--stamp);">#0001</span>
+      </div>
+      <!--
+        NOTE FOR WAYLON: this form currently submits via a mailto: link
+        (opens the visitor's email client with the details pre-filled).
+        That's fine for launch, but for reliable lead capture, wire the
+        <form> below to a real endpoint — e.g. Formspree, Netlify Forms,
+        or your own backend — and swap out the JS submit handler.
+      -->
+      <form id="ticketForm">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="field">
+          <label for="business">Business name</label>
+          <input type="text" id="business" name="business">
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="field">
+          <label>What do you need? (check all that apply)</label>
+          <div class="check-row">
+            <label class="check-item"><input type="checkbox" name="service" value="Web development"> Web development</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Automation"> Automation</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Custom tool"> Custom tool</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Integration"> Integration</label>
+            <label class="check-item"><input type="checkbox" name="service" value="Not sure yet"> Not sure yet</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="details">Describe what's broken or what you want built</label>
+          <textarea id="details" name="details" placeholder="e.g. We're manually re-typing every online order into our POS..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Submit ticket</button>
+        <div class="form-note">Sends straight to Waylon — response within 48 hours.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="eyebrow">Word around town</div>
+    <h2 style="font-size:28px;">What locals are saying</h2>
+    <!--
+      NOTE FOR WAYLON: replace these placeholder cards with real reviews
+      as they come in (copy/paste from Google, or embed the Google
+      Reviews widget once you have a Business Profile set up).
+    -->
+    <div class="review-grid">
+      <div class="review-card placeholder">
+        <div class="stars">☆ ☆ ☆ ☆ ☆</div>
+        <p>Your first Google review will show up here. Ask a happy client to leave one and swap this card out.</p>
+        <div class="who">— Reserved for a real client</div>
+      </div>
+      <div class="review-card placeholder">
+        <div class="stars">☆ ☆ ☆ ☆ ☆</div>
+        <p>Reviews build trust fast for a new local business — this slot is ready whenever you are.</p>
+        <div class="who">— Reserved for a real client</div>
+      </div>
+      <div class="review-card placeholder">
+        <div class="stars">☆ ☆ ☆ ☆ ☆</div>
+        <p>Add as many of these as you like — the grid wraps automatically.</p>
+        <div class="who">— Reserved for a real client</div>
+      </div>
+    </div>
+    <div class="review-cta">
+      <a href="#" class="btn btn-ghost">Leave a Google review →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">Before you ask</div>
+    <h2 style="font-size:28px; margin-bottom:10px;">FAQ</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">What kind of businesses do you work with? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Any local business that relies on manual, repetitive work or needs a real website or software tool — restaurants, contractors, retail, service businesses, and more.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you only work in New Braunfels? <span class="plus">+</span></button>
+        <div class="faq-a"><p>New Braunfels is home base, but the work itself is remote-capable — I can build and support software for clients anywhere.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How much does a project cost? <span class="plus">+</span></button>
+        <div class="faq-a"><p>It depends on scope. Small automations and fixes can be quick and affordable; full builds are quoted after the diagnosis call, once I understand exactly what you need.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long does a typical project take? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Small tools and automations: days. Full websites or larger builds: a few weeks, depending on scope. You'll get a timeline after the scoping call.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you offer support after launch? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Yes — software needs upkeep. Ongoing support and maintenance plans are available so things keep running smoothly.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">I don't know exactly what I need — can I still reach out? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Absolutely. Most tickets start as "something's not working" or "I wish this were easier." Check "Not sure yet" on the form and we'll figure it out on the call.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div>
+      <h3>Waylon Dromgoole</h3>
+      <div class="contact-line">📞 <a href="tel:8304705015">(830) 470-5015</a></div>
+      <div class="contact-line">✉️ <a href="mailto:waylon.codes.for.you@gmail.com">waylon.codes.for.you@gmail.com</a></div>
+      <div class="contact-line">📍 New Braunfels, TX · remote-capable</div>
+    </div>
+    <div>
+      <a href="#ticket" class="btn btn-primary">Open a ticket</a>
+    </div>
+  </div>
+  <div class="fine">FULL-STACK DEVELOPMENT · WORKFLOW AUTOMATION · NEW BRAUNFELS, TX</div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      btn.parentElement.classList.toggle('open');
+    });
+  });
+
+  // Ticket form -> mailto fallback (swap for a real endpoint later)
+  document.getElementById('ticketForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const f = new FormData(this);
+    const services = f.getAll('service').join(', ') || 'Not specified';
+    const body = [
+      'Name: ' + (f.get('name')||''),
+      'Business: ' + (f.get('business')||''),
+      'Phone: ' + (f.get('phone')||''),
+      'Email: ' + (f.get('email')||''),
+      'Services needed: ' + services,
+      '',
+      'Details:',
+      f.get('details')||''
+    ].join('\n');
+    const mailto = 'mailto:waylon.codes.for.you@gmail.com?subject=' +
+      encodeURIComponent('New service ticket from ' + (f.get('name')||'website')) +
+      '&body=' + encodeURIComponent(body);
+    window.location.href = mailto;
+  });
+</script>
+
+</body>
+</html>

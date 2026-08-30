@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Service Call — Software & Automation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    --paper:#efe7d4;
+    --paper-dark:#e5dcc4;
+    --ink:#241f18;
+    --ink-soft:#4a4237;
+    --stamp:#a8352c;
+    --stamp-soft:#c2604f;
+    --line:#c9bfa4;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    padding:40px 16px;
+    background:#1a1712;
+    display:flex;
+    justify-content:center;
+    font-family:'Inter',sans-serif;
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    max-width:620px;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(0,0,0,0.04), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(0,0,0,0.05), transparent 45%),
+      var(--paper);
+    color:var(--ink);
+    box-shadow:0 30px 60px rgba(0,0,0,0.5), 0 2px 0 rgba(0,0,0,0.2);
+    overflow:hidden;
+  }
+
+  .perf{
+    height:14px;
+    background:
+      repeating-radial-gradient(circle at 0 50%, transparent 0 3px, var(--paper) 3px 4px),
+      var(--ink);
+    background-size: 16px 100%, 100% 100%;
+  }
+  .perf.bottom{transform:scaleY(-1);}
+
+  .inner{padding:34px 34px 28px;}
+
+  .ticket-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:16px;
+    margin-bottom:20px;
+  }
+  .brand{
+    font-family:'Special Elite', monospace;
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .ticket-no{
+    text-align:right;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .ticket-no b{color:var(--ink);}
+
+  h1{
+    font-family:'Special Elite', monospace;
+    font-size:clamp(30px, 7vw, 42px);
+    line-height:1.05;
+    margin:0 0 6px;
+    letter-spacing:-0.5px;
+  }
+  .subhead{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--stamp);
+    font-weight:700;
+    letter-spacing:0.5px;
+    margin-bottom:22px;
+  }
+
+  .diagnosis{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:2px solid var(--ink);
+    margin-bottom:22px;
+  }
+  .diagnosis .col{padding:14px 16px;}
+  .diagnosis .col:first-child{border-right:2px dashed var(--line);}
+  .diagnosis .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+    display:block;
+  }
+  .diagnosis li{
+    font-size:13.5px;
+    line-height:1.55;
+    margin-bottom:4px;
+    list-style:none;
+    padding-left:14px;
+    position:relative;
+  }
+  .diagnosis .col:first-child li:before{content:"✕"; position:absolute; left:0; color:#8a7a5c;}
+  .diagnosis .col:last-child li:before{content:"✓"; position:absolute; left:0; color:var(--stamp); font-weight:700;}
+
+  .services{margin-bottom:20px;}
+  .services .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+    display:block;
+  }
+  .svc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px 16px;
+  }
+  .svc{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    font-size:13.5px;
+    line-height:1.4;
+  }
+  .box{
+    flex:0 0 15px;
+    width:15px;height:15px;
+    border:2px solid var(--ink);
+    margin-top:2px;
+    position:relative;
+  }
+  .box:after{
+    content:"";
+    position:absolute;
+    inset:2px;
+    background:var(--stamp);
+    transform:scale(0);
+    transform-origin:center;
+  }
+  .svc.checked .box:after{transform:scale(1);}
+
+  .stamp-wrap{
+    position:absolute;
+    top:118px;
+    right:26px;
+    transform:rotate(-11deg);
+    z-index:5;
+  }
+  .stamp{
+    border:3px solid var(--stamp);
+    color:var(--stamp);
+    font-family:'Special Elite', monospace;
+    font-size:15px;
+    letter-spacing:1.5px;
+    padding:6px 10px;
+    text-transform:uppercase;
+    opacity:0.88;
+    text-align:center;
+    line-height:1.3;
+  }
+
+  .note{
+    font-family:'Special Elite', monospace;
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    border-top:2px dashed var(--line);
+    padding-top:16px;
+    margin-bottom:20px;
+  }
+
+  .footer{
+    background:var(--ink);
+    color:var(--paper);
+    margin:0 -34px -28px;
+    padding:20px 34px 24px;
+  }
+  .footer .cta{
+    font-family:'Special Elite', monospace;
+    font-size:20px;
+    margin-bottom:12px;
+    color:var(--stamp-soft);
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:6px 12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  .contact-grid .k{color:#a89f8a; letter-spacing:1px; text-transform:uppercase; font-size:10px; padding-top:2px;}
+  .contact-grid .v{color:var(--paper); font-weight:500;}
+  .contact-grid .v a{color:var(--paper); text-decoration:none;}
+  .placeholder{color:var(--stamp-soft); font-style:italic;}
+
+  @media (max-width:480px){
+    .diagnosis{grid-template-columns:1fr;}
+    .diagnosis .col:first-child{border-right:none; border-bottom:2px dashed var(--line);}
+    .svc-grid{grid-template-columns:1fr;}
+    .stamp-wrap{top:auto; bottom:250px; right:16px;}
+    .inner{padding:26px 22px 22px;}
+    .footer{margin:0 -22px -22px; padding:18px 22px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="perf"></div>
+  <div class="inner">
+
+    <div class="ticket-head">
+      <div class="brand">New Braunfels · Local Service</div>
+      <div class="ticket-no">TICKET&nbsp;<b>#0001</b><br>DATE&nbsp;<b>______</b></div>
+    </div>
+
+    <h1>Your business<br>has a bug.</h1>
+    <div class="subhead">I FIX IT WITH CODE, NOT DUCT TAPE.</div>
+
+    <div class="diagnosis">
+      <div class="col">
+        <span class="label">Reported symptoms</span>
+        <ul>
+          <li>Manual, repetitive busywork</li>
+          <li>Leads slipping through the cracks</li>
+          <li>Spreadsheets held together by hope</li>
+          <li>A website that looks like 2014</li>
+        </ul>
+      </div>
+      <div class="col">
+        <span class="label">Diagnosis / fix</span>
+        <ul>
+          <li>Automated workflows, running 24/7</li>
+          <li>Custom tools built around your process</li>
+          <li>Real software, not another app subscription</li>
+          <li>A fast, modern site that converts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stamp-wrap">
+      <div class="stamp">Taking<br>New Clients</div>
+    </div>
+
+    <div class="services">
+      <span class="label">Work performed</span>
+      <div class="svc-grid">
+        <div class="svc checked"><div class="box"></div>Full-stack web development</div>
+        <div class="svc checked"><div class="box"></div>Business process automation</div>
+        <div class="svc checked"><div class="box"></div>Custom internal tools & dashboards</div>
+        <div class="svc checked"><div class="box"></div>Website builds & redesigns</div>
+        <div class="svc checked"><div class="box"></div>API & software integrations</div>
+        <div class="svc checked"><div class="box"></div>Ongoing support & maintenance</div>
+      </div>
+    </div>
+
+    <div class="note">
+      Local dev, remote-capable. I've built trading systems, network monitors, and full product suites — now bringing that to New Braunfels businesses. No jargon, no bloated agency retainer. Just working software.
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="cta">→ Reach out, let's talk shop</div>
+    <div class="contact-grid">
+      <span class="k">Name</span><span class="v">Waylon Dromgoole</span>
+      <span class="k">Phone</span><span class="v">(830) 470-5015</span>
+      <span class="k">Email</span><span class="v">waylon.codes.for.you@gmail.com</span>
+      <span class="k">Web</span><span class="v placeholder">[Landing page URL]</span>
+    </div>
+  </div>
+
+  <div class="perf bottom"></div>
+</div>
+
+</body>
+</html>
